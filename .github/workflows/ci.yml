@@ -1,19 +1,23 @@
-name: CI Pipeline
+name: CI-CD Pipeline with ChatOps
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Build step
-      run: echo "Building the project..."
+    - name: Build Project
+      run: echo "Build completed successfully"
 
-    - name: Test step
-      run: echo "Running tests..."
+    - name: Notify Slack
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+        --data '{"text":"✅ CI Pipeline Successful for devops-webapp"}' \
+        ${{ secrets.SLACK_WEBHOOK }}
